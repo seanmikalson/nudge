@@ -16,14 +16,14 @@
 <script>
 export default {
   name: 'intention-input',
-  data () {
+  data: function () {
     return {
       intention: ''
     }
   },
   methods: {
     intentionEntered: function() {
-      
+
     }
   }
 }
