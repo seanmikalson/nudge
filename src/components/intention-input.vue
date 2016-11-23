@@ -9,6 +9,9 @@
       <div>
         {{intention}}
       </div>
+      <div>
+        {{allintentions}}
+      </div>
     </div>
   </div>
 </template>
@@ -16,14 +19,21 @@
 <script>
 export default {
   name: 'intention-input',
+  props: ['allintentions'],
   data: function () {
     return {
       intention: ''
-    }
+    };
   },
   methods: {
     intentionEntered: function() {
-
+      fetch('/save', {
+        method: 'POST',
+        headers: new Headers({
+          'Content-Type': 'text/plain'
+        }),
+        body: this.intention
+      });
     }
   }
 }

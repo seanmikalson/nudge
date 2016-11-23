@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <intention-input></intention-input>
+    <intention-input :allintentions="allintentions"></intention-input>
   </div>
 </template>
 
@@ -9,6 +9,7 @@ import IntentionInput from './components/intention-input'
 
 export default {
   name: 'app',
+  props: ['allintentions'],
   components: {
     IntentionInput
   }
