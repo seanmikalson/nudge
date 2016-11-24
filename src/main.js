@@ -4,25 +4,8 @@ import App from './App'
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
-  template: '<App :allintentions="allintentions"/>',
-  components: { App },
-  data: function(){
-    return {
-      allintentions: ''
-    };
-  },
-  created: function() {
-    fetch('/getintentions', {
-      method: 'GET',
-      headers: new Headers({
-        'Content-Type': 'text/plain'
-      })
-    }).then(function(data) {
-      data.text().then(function(response) {
-        this.allintentions += response;
-      }.bind(this));
-    }.bind(this));
-  }
+  template: '<App />',
+  components: { App }
 })
 
 if('serviceWorker' in navigator) {

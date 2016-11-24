@@ -6,12 +6,6 @@
     <div>
       <input class="int-input" placeholder="Need a nudge?" v-model="intention"></input>
       <button class="btn intention-button" @click="intentionEntered">Add!</button>
-      <div>
-        {{intention}}
-      </div>
-      <div>
-        {{allintentions}}
-      </div>
     </div>
   </div>
 </template>
@@ -33,7 +27,9 @@ export default {
           'Content-Type': 'text/plain'
         }),
         body: this.intention
-      });
+      }).then(function() {
+        this.$emit('intentionadded', this.intention);
+      }.bind(this));
     }
   }
 }

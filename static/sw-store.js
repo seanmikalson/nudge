@@ -4,10 +4,6 @@ this.addEventListener('install', function(evt) {
   evt.waitUntil(this.skipWaiting());
 });
 
-this.addEventListener('activate', function(event) {
-  event.waitUntil(this.clients.claim());
-});
-
 this.addEventListener('fetch', function(event) {
   event.respondWith(openDB().then(function(){
     var path = event.request.url.split('/')[3];
@@ -22,7 +18,7 @@ this.addEventListener('fetch', function(event) {
       });
     } else if(path === 'getintentions') {
       return getData('intentions').then(function(intentions){
-        return new Response(intentions,{status: 200});
+        return new Response(JSON.stringify(intentions),{status: 200});
       });
     } else {
       return fetch(event.request);
