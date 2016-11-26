@@ -16,9 +16,18 @@ this.addEventListener('fetch', function(event) {
           return new Response({status: 200});
         });
       });
-    } else if(path === 'getintentions') {
+    } else if(path === 'getintentions' && event.request.method === 'GET') {
       return getData('intentions').then(function(intentions){
         return new Response(JSON.stringify(intentions),{status: 200});
+      });
+    } else if(path === 'intention' && event.request.method === 'DELETE') {
+      var id = event.request.url.split('/')[4];
+      return deleteData('intentions', id).then(function() {
+        db.close();
+        db = null;
+        return new Response({status: 200});
+      }, function() {
+        return new Response({status: 500});
       });
     } else {
       return fetch(event.request);
@@ -68,15 +77,35 @@ var saveData = function(objectStore, data) {
 
 var getData = function(objectStore) {
   return new Promise(function(resolve, reject) {
+    var data = [];
     var t = db.transaction([objectStore]);
     var req = t.objectStore(objectStore);
 
-    var result = req.getAll();
+    var result = req.openCursor();
     result.onsuccess = function(event) {
-      resolve(event.target.result);
+      var cursor = event.target.result;
+      if(cursor) {
+        data.push({key: cursor.key, value: cursor.value});
+        cursor.continue();
+      } else {
+        resolve(data);
+      }
     };
     result.onerror = function() {
       reject();
     };
   });
 };
+
+var deleteData = function(objectStore, id) {
+  return new Promise(function(resolve, reject) {
+      var t = db.transaction([objectStore], 'readwrite').objectStore(objectStore);
+      var del = t.delete(parseInt(id));
+      del.onsuccess = function() {
+        resolve();
+      };
+      del.onerror = function() {
+        reject();
+      }
+  });
+}

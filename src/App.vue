@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <intention-input @intentionadded="intentionadded" :allintentions="allintentions"></intention-input>
-    <intention-display :allintentions="allintentions"></intention-display>
+    <intention-display @refresh="getIntentions" :allintentions="allintentions"></intention-display>
   </div>
 </template>
 
@@ -21,20 +21,23 @@ export default {
     };
   },
   created: function() {
-    fetch('/getintentions', {
-      method: 'GET',
-      headers: new Headers({
-        'Content-Type': 'text/plain'
-      })
-    }).then(function(data) {
-      data.text().then(function(response) {
-        this.allintentions = JSON.parse(response);
-      }.bind(this));
-    }.bind(this));
+    this.getIntentions();
   },
   methods: {
     intentionadded: function(intention) {
       this.allintentions.push(intention);
+    },
+    getIntentions: function() {
+      fetch('/getintentions', {
+        method: 'GET',
+        headers: new Headers({
+          'Content-Type': 'text/plain'
+        })
+      }).then(function(data) {
+        data.text().then(function(response) {
+          this.allintentions = JSON.parse(response);
+        }.bind(this));
+      }.bind(this));
     }
   }
 }
