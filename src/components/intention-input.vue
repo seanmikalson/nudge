@@ -28,7 +28,7 @@ export default {
         }),
         body: this.intention
       }).then(function() {
-        this.$emit('intentionadded', this.intention);
+        this.$emit('refresh', this.intention);
       }.bind(this));
     }
   }

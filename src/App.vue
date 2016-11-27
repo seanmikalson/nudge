@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <intention-input @intentionadded="intentionadded" :allintentions="allintentions"></intention-input>
+    <intention-input @refresh="getIntentions" :allintentions="allintentions"></intention-input>
     <intention-display @refresh="getIntentions" :allintentions="allintentions"></intention-display>
   </div>
 </template>
@@ -24,9 +24,6 @@ export default {
     this.getIntentions();
   },
   methods: {
-    intentionadded: function(intention) {
-      this.allintentions.push(intention);
-    },
     getIntentions: function() {
       fetch('/getintentions', {
         method: 'GET',
