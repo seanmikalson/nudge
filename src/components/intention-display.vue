@@ -9,6 +9,7 @@
 
 <script>
 module.exports = {
+  name: 'intention-display',
   props: ['allintentions'],
   methods: {
     removeIntention: function(key) {
