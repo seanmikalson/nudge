@@ -1,18 +1,24 @@
 <template>
-  <div @mousedown="mousedown" @mousemove="mousemove" @mouseup="mouseup">
-    <div :class="['hand', handPosition]"></div>
-    <div id="handPos1" class="centered pos1 clock-position">1</div>
-    <div id="handPos2" class="centered pos2 clock-position">2</div>
-    <div id="handPos3" class="centered pos3 clock-position">3</div>
-    <div id="handPos4" class="centered pos4 clock-position">4</div>
-    <div id="handPos5" class="centered pos5 clock-position">5</div>
-    <div id="handPos6" class="centered pos6 clock-position">6</div>
-    <div id="handPos7" class="centered pos7 clock-position">7</div>
-    <div id="handPos8" class="centered pos8 clock-position">8</div>
-    <div id="handPos9" class="centered pos9 clock-position">9</div>
-    <div id="handPos10" class="centered pos10 clock-position">10</div>
-    <div id="handPos11" class="centered pos11 clock-position">11</div>
-    <div id="handPos12" class="centered pos12 clock-position">12</div>
+  <div class="time-container">
+    <div class="clock-container" @mousedown="mousedown" @mousemove="mousemove" @mouseup="mouseup">
+      <div :class="['hand', handPosition]"></div>
+      <div id="handPos1" class="centered pos1 clock-position">1</div>
+      <div id="handPos2" class="centered pos2 clock-position">2</div>
+      <div id="handPos3" class="centered pos3 clock-position">3</div>
+      <div id="handPos4" class="centered pos4 clock-position">4</div>
+      <div id="handPos5" class="centered pos5 clock-position">5</div>
+      <div id="handPos6" class="centered pos6 clock-position">6</div>
+      <div id="handPos7" class="centered pos7 clock-position">7</div>
+      <div id="handPos8" class="centered pos8 clock-position">8</div>
+      <div id="handPos9" class="centered pos9 clock-position">9</div>
+      <div id="handPos10" class="centered pos10 clock-position">10</div>
+      <div id="handPos11" class="centered pos11 clock-position">11</div>
+      <div id="handPos12" class="centered pos12 clock-position">12</div>
+    </div>
+    <div class="confirm-cancel-time">
+      <button class="time-cancel" @click="cancel">CANCEL</button>
+      <button class="time-ok" @click="ok">OK</button>
+    </div>
   </div>
 </template>
 
@@ -75,12 +81,58 @@ export default {
 
       closestElement.classList.add('selected');
       this.handPosition = closestElement.id;
+    },
+    ok: function() {
+      this.$emit('time-selected');
+    },
+    cancel: function() {
+      this.$emit('canceled');
     }
   }
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+
+  button {
+    background-color: transparent;
+    border: none;
+    color: red;
+    font-weight: bold;
+
+    &:active {
+      outline: none;
+      background-color: #8c8c8c;
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  .confirm-cancel-time {
+    padding-bottom: 10px;
+    padding-top: 10px;
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 5px;
+  }
+
+  .time-container {
+    margin: 20px auto 0 auto;
+    background-color: #4d4d4d;
+    width: 170px;
+    box-shadow: 0 1px 3px 2px rgba(0, 0, 0, 0.3);
+    border-radius: 3px;
+  }
+
+  .clock-container {
+    width: 170px;
+    height: 170px;
+    position: relative;
+    -webkit-user-select: none;
+    color: white;
+  }
 
   .selected {
     background-color: red;

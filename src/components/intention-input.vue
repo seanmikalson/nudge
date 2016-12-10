@@ -5,18 +5,26 @@
     </div>
     <div>
       <input class="int-input" placeholder="Need a nudge?" v-model="intention"></input>
+      <button class="btn btn-set-time" @click="setTime">When?</button>
       <button class="btn intention-button" @click="intentionEntered">Add!</button>
     </div>
+    <time-picker v-if="showTimePicker" @time-selected="timeSelected" @canceled="timeSelectCancel"></time-picker>
   </div>
 </template>
 
 <script>
+import TimePicker from './time-picker'
+
 export default {
   name: 'intention-input',
   props: ['allintentions'],
+  components: {
+    TimePicker
+  },
   data: function () {
     return {
-      intention: ''
+      intention: '',
+      showTimePicker: false
     };
   },
   methods: {
@@ -30,6 +38,15 @@ export default {
       }).then(function() {
         this.$emit('refresh', this.intention);
       }.bind(this));
+    },
+    setTime: function() {
+      this.showTimePicker = true;
+    },
+    timeSelected: function() {
+      this.showTimePicker = false;
+    },
+    timeSelectCancel: function() {
+      this.showTimePicker = false;
     }
   }
 }
@@ -44,6 +61,10 @@ export default {
 .btn {
   width: 50px;
   height: 20px;
+}
+
+.btn-set-time {
+  width: 70px;
 }
 
 input {

@@ -1,7 +1,6 @@
 <template>
   <div id="app">
     <intention-input @refresh="getIntentions" :allintentions="allintentions"></intention-input>
-    <time-picker class="clock-container"></time-picker>
     <intention-display @refresh="getIntentions" :allintentions="allintentions"></intention-display>
   </div>
 </template>
@@ -9,14 +8,12 @@
 <script>
 import IntentionInput from './components/intention-input'
 import IntentionDisplay from './components/intention-display'
-import TimePicker from './components/time-picker'
 
 export default {
   name: 'app',
   components: {
     IntentionInput,
-    IntentionDisplay,
-    TimePicker
+    IntentionDisplay
   },
   data: function(){
     return {
@@ -44,11 +41,7 @@ export default {
 </script>
 
 <style lang="scss">
-
-.clock-container {
-  width: 150px;
-  height: 150px;
-  margin: auto;
-  position: relative;
+body {
+  box-sizing: border-box;
 }
 </style>
