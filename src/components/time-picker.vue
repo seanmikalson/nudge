@@ -33,7 +33,7 @@ export default {
   },
   mounted: function() {
     this.$el.querySelector('#' + this.handPosition).classList.add('selected');
-    var childElements = this.$el.children;
+    var childElements = this.$el.children[0].children;
     for(var i = 0; i < childElements.length; i++) {
       var element = childElements[i];
       if(element.className.indexOf('clock-position') !== -1) {
