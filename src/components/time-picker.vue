@@ -14,6 +14,19 @@
       <div id="handPos10" class="centered pos10 clock-position">10</div>
       <div id="handPos11" class="centered pos11 clock-position">11</div>
       <div id="handPos12" class="centered pos12 clock-position">12</div>
+
+      <div id="handPos13" class="centered pos13 clock-position-pm">13</div>
+      <div id="handPos14" class="centered pos14 clock-position-pm">14</div>
+      <div id="handPos15" class="centered pos15 clock-position-pm">15</div>
+      <div id="handPos16" class="centered pos16 clock-position-pm">16</div>
+      <div id="handPos17" class="centered pos17 clock-position-pm">17</div>
+      <div id="handPos18" class="centered pos18 clock-position-pm">18</div>
+      <div id="handPos19" class="centered pos19 clock-position-pm">19</div>
+      <div id="handPos20" class="centered pos20 clock-position-pm">20</div>
+      <div id="handPos21" class="centered pos21 clock-position-pm">21</div>
+      <div id="handPos22" class="centered pos22 clock-position-pm">22</div>
+      <div id="handPos23" class="centered pos23 clock-position-pm">23</div>
+      <div id="handPos24" class="centered pos24 clock-position-pm">24</div>
     </div>
     <div class="confirm-cancel-time">
       <button class="time-cancel" @click="cancel">CANCEL</button>
@@ -191,6 +204,42 @@ export default {
   .handPos12 {
     transform: translateY(-50%) translateX(-30px) rotate(270deg) translateX(30px);
   }
+  .handPos13 {
+    transform: translateY(-50%) translateX(-30px) rotate(-60deg) translateX(30px);
+  }
+  .handPos14 {
+    transform: translateY(-50%) translateX(-30px) rotate(-30deg) translateX(30px);
+  }
+  .handPos15 {
+    transform: translateY(-50%) translateX(-30px) rotate(0) translateX(30px);
+  }
+  .handPos16 {
+    transform: translateY(-50%) translateX(-30px) rotate(30deg) translateX(30px);
+  }
+  .handPos17 {
+    transform: translateY(-50%) translateX(-30px) rotate(60deg) translateX(30px);
+  }
+  .handPos18 {
+    transform: translateY(-50%) translateX(-30px) rotate(90deg) translateX(30px);
+  }
+  .handPos19 {
+    transform: translateY(-50%) translateX(-30px) rotate(120deg) translateX(30px);
+  }
+  .handPos20 {
+    transform: translateY(-50%) translateX(-30px) rotate(150deg) translateX(30px);
+  }
+  .handPos21 {
+    transform: translateY(-50%) translateX(-30px) rotate(180deg) translateX(30px);
+  }
+  .handPos22 {
+    transform: translateY(-50%) translateX(-30px) rotate(210deg) translateX(30px);
+  }
+  .handPos23 {
+    transform: translateY(-50%) translateX(-30px) rotate(240deg) translateX(30px);
+  }
+  .handPos24 {
+    transform: translateY(-50%) translateX(-30px) rotate(270deg) translateX(30px);
+  }
 
   .pos1 {
     transform: translate(-50%, -50%) rotate(30deg) translateY(-70px) rotate(-30deg);
@@ -240,10 +289,66 @@ export default {
     transform: translate(-50%, -50%) rotate(360deg) translateY(-70px) rotate(-360deg);
   }
 
+  .pos13 {
+    transform: translate(-50%, -50%) rotate(30deg) translateY(-45px) rotate(-30deg);
+  }
+
+  .pos14 {
+    transform: translate(-50%, -50%) rotate(60deg) translateY(-45px) rotate(-60deg);
+  }
+
+  .pos15 {
+    transform: translate(-50%, -50%) rotate(90deg) translateY(-45px) rotate(-90deg);
+  }
+
+  .pos16 {
+    transform: translate(-50%, -50%) rotate(120deg) translateY(-45px) rotate(-120deg);
+  }
+
+  .pos17 {
+    transform: translate(-50%, -50%) rotate(150deg) translateY(-45px) rotate(-150deg);
+  }
+
+  .pos18 {
+    transform: translate(-50%, -50%) rotate(180deg) translateY(-45px) rotate(-180deg);
+  }
+
+  .pos19 {
+    transform: translate(-50%, -50%) rotate(210deg) translateY(-45px) rotate(-210deg);
+  }
+
+  .pos20 {
+    transform: translate(-50%, -50%) rotate(240deg) translateY(-45px) rotate(-240deg);
+  }
+
+  .pos21 {
+    transform: translate(-50%, -50%) rotate(270deg) translateY(-45px) rotate(-270deg);
+  }
+
+  .pos22 {
+    transform: translate(-50%, -50%) rotate(300deg) translateY(-45px) rotate(-300deg);
+  }
+
+  .pos23 {
+    transform: translate(-50%, -50%) rotate(330deg) translateY(-45px) rotate(-330deg);
+  }
+
+  .pos24 {
+    transform: translate(-50%, -50%) rotate(360deg) translateY(-45px) rotate(-360deg);
+  }
+
   .clock-position {
     width: 24px;
     height: 24px;
     font-size: 20px;
+    text-align: center;
+    cursor: pointer;
+  }
+
+  .clock-position-pm {
+    width: 18px;
+    height: 18px;
+    font-size: 16px;
     text-align: center;
     cursor: pointer;
   }
