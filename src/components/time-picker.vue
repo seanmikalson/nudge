@@ -1,18 +1,18 @@
 <template>
-  <div>
+  <div @mousedown="mousedown" @mousemove="mousemove" @mouseup="mouseup">
     <div :class="['hand', handPosition]"></div>
-    <div @click="positionSelected" id="handPos1" class="centered pos1 clock-position">1</div>
-    <div @click="positionSelected" id="handPos2" class="centered pos2 clock-position">2</div>
-    <div @click="positionSelected" id="handPos3" class="centered pos3 clock-position">3</div>
-    <div @click="positionSelected" id="handPos4" class="centered pos4 clock-position">4</div>
-    <div @click="positionSelected" id="handPos5" class="centered pos5 clock-position">5</div>
-    <div @click="positionSelected" id="handPos6" class="centered pos6 clock-position">6</div>
-    <div @click="positionSelected" id="handPos7" class="centered pos7 clock-position">7</div>
-    <div @click="positionSelected" id="handPos8" class="centered pos8 clock-position">8</div>
-    <div @click="positionSelected" id="handPos9" class="centered pos9 clock-position">9</div>
-    <div @click="positionSelected" id="handPos10" class="centered pos10 clock-position">10</div>
-    <div @click="positionSelected" id="handPos11" class="centered pos11 clock-position">11</div>
-    <div @click="positionSelected" id="handPos12" class="centered pos12 clock-position">12</div>
+    <div id="handPos1" class="centered pos1 clock-position">1</div>
+    <div id="handPos2" class="centered pos2 clock-position">2</div>
+    <div id="handPos3" class="centered pos3 clock-position">3</div>
+    <div id="handPos4" class="centered pos4 clock-position">4</div>
+    <div id="handPos5" class="centered pos5 clock-position">5</div>
+    <div id="handPos6" class="centered pos6 clock-position">6</div>
+    <div id="handPos7" class="centered pos7 clock-position">7</div>
+    <div id="handPos8" class="centered pos8 clock-position">8</div>
+    <div id="handPos9" class="centered pos9 clock-position">9</div>
+    <div id="handPos10" class="centered pos10 clock-position">10</div>
+    <div id="handPos11" class="centered pos11 clock-position">11</div>
+    <div id="handPos12" class="centered pos12 clock-position">12</div>
   </div>
 </template>
 
@@ -21,18 +21,73 @@ export default {
   name: 'time-picker',
   data: function() {
     return {
-      handPosition: 'handPos1'
+      handPosition: 'handPos1',
+      positions: []
     };
+  },
+  mounted: function() {
+    this.$el.querySelector('#' + this.handPosition).classList.add('selected');
+    var childElements = this.$el.children;
+    for(var i = 0; i < childElements.length; i++) {
+      var element = childElements[i];
+      if(element.className.indexOf('clock-position') !== -1) {
+        var rect = element.getBoundingClientRect();
+        var x = (rect.right + rect.left) / 2;
+        var y = (rect.bottom + rect.top) / 2;
+        var position = {};
+        position.element = element;
+        position.center = {x: x, y: y};
+        this.positions.push(position);
+      }
+    }
+
   },
   methods: {
     positionSelected: function(event) {
+      this.$el.querySelector('#' + this.handPosition).classList.remove('selected');
+      this.$el.querySelector('#' + event.target.id).classList.add('selected');
       this.handPosition = event.target.id;
+    },
+    mousedown: function(event) {
+      this.trackMouse = true;
+      this.calculateClosestElement(event.x, event.y);
+    },
+    mousemove: function(event) {
+      if(this.trackMouse) {
+        this.calculateClosestElement(event.x, event.y);
+      }
+    },
+    mouseup: function() {
+      this.trackMouse = false;
+    },
+    calculateClosestElement: function(x, y) {
+      var distance = Infinity;
+      var closestElement = null;
+      for(var i = 0; i < this.positions.length; i++) {
+        var center = this.positions[i].center;
+        this.positions[i].element.classList.remove('selected');
+        var distanceToElement = Math.sqrt(Math.pow(x - center.x, 2) + Math.pow(y - center.y, 2));
+        if(distanceToElement < distance) {
+          distance = distanceToElement;
+          closestElement = this.positions[i].element;
+        }
+      }
+
+      closestElement.classList.add('selected');
+      this.handPosition = closestElement.id;
     }
   }
 }
 </script>
 
 <style scoped>
+
+  .selected {
+    background-color: red;
+    color: white;
+    border-radius: 12px;
+  }
+
   .centered {
     position: absolute;
     top: 50%;
@@ -44,7 +99,7 @@ export default {
     top: 50%;
     left: 50%;
     width: 60px;
-    height: 5px;
+    height: 2px;
     background-color: red;
   }
 
@@ -134,8 +189,10 @@ export default {
   }
 
   .clock-position {
-    width: 20px;
-    height: 20px;
+    width: 24px;
+    height: 24px;
+    font-size: 20px;
     text-align: center;
+    cursor: pointer;
   }
 </style>
